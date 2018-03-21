@@ -27,7 +27,5 @@ public class No {
 	}
 	public void setAnterior(No anterior) {
 		this.anterior = anterior;
-	}
-
-	
+	}	
 }

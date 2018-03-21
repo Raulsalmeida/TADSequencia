@@ -1,10 +1,13 @@
 
 public class TSequencia implements Sequencia {
+	
+	private No inicio;
+	private No fim;
+	private int tamanho;
 
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
+		return tamanho;
 	}
 
 	@Override
@@ -38,93 +41,135 @@ public class TSequencia implements Sequencia {
 	}
 
 	@Override
-	public No isFirst(No n) {
-		// TODO Auto-generated method stub
-		return null;
+	public boolean isFirst(No n) {
+		return n.getElemento() == inicio.getProximo();
 	}
 
 	@Override
-	public No isLast(No n) {
-		// TODO Auto-generated method stub
-		return null;
+	public boolean isLast(No n) {
+		return n.getElemento() == fim.getAnterior();
 	}
 
 	@Override
 	public No first() {
-		// TODO Auto-generated method stub
-		return null;
+		return inicio.getProximo();
 	}
 
 	@Override
 	public No last() {
-		// TODO Auto-generated method stub
-		return null;
+		return fim.getAnterior();
 	}
 
 	@Override
-	public No before(No a) {
-		// TODO Auto-generated method stub
-		return null;
+	public No before(No n) {
+		return n.getAnterior();
 	}
 
 	@Override
-	public No after(No p) {
-		// TODO Auto-generated method stub
-		return null;
+	public No after(No n) {
+		return n.getProximo();
 	}
 
 	@Override
 	public void replaceElem(No n, Object o) {
-		// TODO Auto-generated method stub
-		
+		Object novo = new Object();
+		novo = n.getElemento();
+		n.setElemento(o);	
 	}
 
 	@Override
-	public void swapElem(No n, Object q) {
-		// TODO Auto-generated method stub
-		
+	public void swapElem(No n, No q) {
+		Object novo = new Object();
+		novo = n.getElemento();
+		n.setElemento(q.getElemento());
+		q.setElemento(novo);
 	}
 
+	@SuppressWarnings("null")
 	@Override
 	public Object insertBefore(No n, Object o) {
-		// TODO Auto-generated method stub
+		No v = null;
+		v.setElemento(o);
+		v.setAnterior(n);
+		v.setAnterior(n.getAnterior());
+		(n.getAnterior()).setAnterior(v);
+		n.setAnterior(v);
 		return null;
 	}
 
+	@SuppressWarnings("null")
 	@Override
 	public Object insertAfter(No n, Object o) {
-		// TODO Auto-generated method stub
-		return null;
+		No v = null;
+		v.setElemento(o);
+		v.setAnterior(n);
+		v.setProximo(n.getProximo());
+		(n.getProximo()).setProximo(v);
+		n.setProximo(v);
+		return v;
 	}
 
 	@Override
 	public void insertFirst(No o) {
-		// TODO Auto-generated method stub
+		//No proximo = null;
+		//proximo = inicio.getProximo();
+		//No novo = new No(o, proximo, inicio);
+		//inicio.setProximo(novo);
+		//proximo.setAnterior(novo);
+		No novo = null;
 		
 	}
 
 	@Override
 	public void insertLast(No o) {
-		// TODO Auto-generated method stub
+		No anterior = null;
+		anterior = fim.getAnterior();
+		No novo = new No(o, fim, anterior);
+		fim.setAnterior(novo);
+		anterior.setProximo(novo);
 		
 	}
 
 	@Override
 	public Object remove(No n) {
-		// TODO Auto-generated method stub
-		return null;
+		Object t = n.getElemento();
+		(n.getAnterior()).setProximo(n.getProximo());
+		(n.getProximo()).setAnterior(n.getAnterior());
+		n.setAnterior(null);
+		n.setProximo(null);
+		tamanho --;
+		return t;
 	}
 
+	@SuppressWarnings("null")
 	@Override
 	public No atRank(int r) {
-		// TODO Auto-generated method stub
-		return null;
+		No node = null;
+		if(r <= size()/2) {
+			node = inicio.getProximo();
+			for(int i = 0; i < r; i++) {
+				node = node.getProximo();
+			}
+		}else {
+			node = fim.getAnterior();
+			for(int i = 0; i < size()-r-1; i++) {
+				node = node.getAnterior();
+			}
+		}
+		return node;
 	}
 
+	@SuppressWarnings("null")
 	@Override
 	public Object rankOf(No n) {
-		// TODO Auto-generated method stub
-		return null;
+		No node = null;
+		node = inicio.getProximo();
+		int r = 0;
+		while(node != n && n != fim) {
+			n.getProximo();
+			r++;
+		}
+		return r;
 	}
 
 }
