@@ -12,32 +12,39 @@ public class TSequencia implements Sequencia {
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+		return tamanho == 0;
 	}
 
 	@Override
 	public Object elemAtRank(int r) {
-		// TODO Auto-generated method stub
-		return null;
+		No no = atRank(r);
+		return no;
 	}
 
 	@Override
 	public Object replaceAtRank(int r, Object o) {
-		// TODO Auto-generated method stub
-		return null;
+		No no = atRank(r);
+		Object antigoElemento = no.getElemento();
+		no.setElemento(o);
+		return antigoElemento;
 	}
 
 	@Override
-	public Object insertAtRank(int r, Object o) {
-		// TODO Auto-generated method stub
-		return null;
+	public void insertAtRank(int r, Object o) {
+		No antigo = atRank(r);
+		No novo = null;
+		novo.setProximo(antigo.getProximo());
+		novo.setAnterior(antigo);
+		novo.setElemento(o);
+		tamanho ++;
 	}
 
 	@Override
 	public Object removeAtRank(int r, Object o) {
-		// TODO Auto-generated method stub
-		return null;
+		No no = atRank(r);
+		Object NoRemovido = no.getElemento();
+		remove(no);
+		return NoRemovido;
 	}
 
 	@Override
@@ -94,7 +101,7 @@ public class TSequencia implements Sequencia {
 		v.setAnterior(n.getAnterior());
 		(n.getAnterior()).setAnterior(v);
 		n.setAnterior(v);
-		return null;
+		return v;
 	}
 
 	@SuppressWarnings("null")
@@ -111,23 +118,20 @@ public class TSequencia implements Sequencia {
 
 	@Override
 	public void insertFirst(No o) {
-		//No proximo = null;
-		//proximo = inicio.getProximo();
-		//No novo = new No(o, proximo, inicio);
-		//inicio.setProximo(novo);
-		//proximo.setAnterior(novo);
 		No novo = null;
-		
+		No proximo = inicio.getProximo();
+		novo.setElemento(o);
+		novo.setAnterior(inicio);
+		novo.setProximo(proximo);
 	}
 
 	@Override
 	public void insertLast(No o) {
-		No anterior = null;
-		anterior = fim.getAnterior();
-		No novo = new No(o, fim, anterior);
-		fim.setAnterior(novo);
-		anterior.setProximo(novo);
-		
+		No novo = null;
+		No anterior = fim.getAnterior();
+		novo.setElemento(o);
+		novo.setProximo(fim);
+		novo.setAnterior(anterior);
 	}
 
 	@Override
