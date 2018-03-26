@@ -10,6 +10,10 @@ public class No {
     	this.anterior = anterior;
     }
     
+    public No() {
+    	
+    }
+    
 	public Object getElemento() {
 		return elemento;
 	}
