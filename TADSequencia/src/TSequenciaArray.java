@@ -3,25 +3,34 @@ public class TSequenciaArray implements Sequencia {
 
 	private No v[];
 	private No fim;
+	private No inicio = v[0];
 	private int tamanho;
+	int tam = v.length;
 	
+	
+	public TSequenciaArray(No inicio, No fim) {
+		this.inicio = inicio;
+		this.fim = fim;
+	}
 	
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		//return tamanho;
+		return tam;
 	}
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+		
+		//return tamanho == 0;
+		return tam == 0;
 	}
 
 	@Override
 	public Object elemAtRank(int r) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return v[r];
 	}
 
 	@Override
@@ -122,8 +131,16 @@ public class TSequenciaArray implements Sequencia {
 
 	@Override
 	public No atRank(int r) {
-		// TODO Auto-generated method stub
-		return null;
+		No node = null;
+		if(r <= (v.length / 2)){
+			node = inicio.getProximo();
+			for(int i = 0; i < r; i++) {
+				node = node.getProximo();
+			}
+		}else {
+			node = fim.getAnterior(); 
+		}
+		return node;
 	}
 
 	@Override
