@@ -40,7 +40,7 @@ public class TSequencia implements Sequencia {
 	}
 
 	@Override
-	public Object removeAtRank(int r, Object o) {
+	public Object removeAtRank(int r) {
 		No no = atRank(r);
 		Object NoRemovido = no.getElemento();
 		remove(no);

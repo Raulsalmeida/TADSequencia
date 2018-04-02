@@ -1,10 +1,10 @@
 import java.util.Scanner;
-public class Main {
+public class MainArray {
 
 	//case 4:
 	//	break;
 	public static void menuUI(){
-        System.out.println("TAD SEQUENCIA\n====================="
+        System.out.println("TAD SEQUENCIA ARRAY\n====================="
                 + "\nEscolha uma opçãoo:\n----------------------\n"
                 + "1 - Ver número de elementos na sequencia(size)\n"
                 + "2 - Ver se a sequencia está vazia(isEmpty)\n"
@@ -31,8 +31,12 @@ public class Main {
         
     }
 	public static void main(String[] args) {
+		
+		
 		Scanner ler = new Scanner(System.in);
-		TSequencia seq = new TSequencia();
+		System.out.println("Digite o tamanho do array:");
+		int taman = ler.nextInt();
+		TSequenciaArray seq = new TSequenciaArray(taman);
 		
 		int resposta = -1;
 		while(resposta!=0) {

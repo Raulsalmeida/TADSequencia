@@ -3,27 +3,28 @@ public class TSequenciaArray implements Sequencia {
 
 	private No v[];
 	private No fim;
-	private No inicio = v[0];
+	private No inicio;
 	private int tamanho;
-	int tam = v.length;
+	int tam;
 	
 	
-	public TSequenciaArray(No inicio, No fim) {
-		this.inicio = inicio;
-		this.fim = fim;
+	public TSequenciaArray(int t) {
+		
+		v = new No[t]; 
+		this.inicio = v[0];
+		//this.fim = v[5];
+		this.tamanho = v.length;
 	}
 	
 	@Override
 	public int size() {
 		
-		//return tamanho;
 		return tam;
 	}
 
 	@Override
 	public boolean isEmpty() {
 		
-		//return tamanho == 0;
 		return tam == 0;
 	}
 
@@ -35,98 +36,169 @@ public class TSequenciaArray implements Sequencia {
 
 	@Override
 	public Object replaceAtRank(int r, Object o) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void insertAtRank(int r, Object o) {
-		// TODO Auto-generated method stub
+		//No no = atRank(r);
+		//Object antigoElemento = no.getElemento();
+		//no.setElemento(o);
+		//return antigoElemento;
+		Object antigo = v[r].getElemento(); 
+		v[r].setElemento(o);
+		return antigo;
 		
 	}
 
 	@Override
-	public Object removeAtRank(int r, Object o) {
+	public void insertAtRank(int r, Object o) {
+		v[r].setElemento(o);
+		v[r-1].setProximo(v[r]);
+		v[r+1].setAnterior(v[r]);
+		tam++;
+		
+	}
+
+	@Override
+	public Object removeAtRank(int r) {
 		// TODO Auto-generated method stub
-		return null;
+		v[r].setElemento(null);
+		v[r+1].setAnterior(v[r-2].getProximo());
+		v[r].setElemento(v[r+1].getElemento());
+		v[r-1].setProximo(v[r+2].getAnterior());
+		tam--;
+		
+		return v[r].getElemento();
 	}
 
 	@Override
 	public boolean isFirst(No n) {
-		// TODO Auto-generated method stub
-		return false;
+		if(v[0].getElemento().equals(n.getElemento())) {
+			return true;
+		}else {
+			return false;
+		}
+		
 	}
 
 	@Override
 	public boolean isLast(No n) {
-		// TODO Auto-generated method stub
-		return false;
+		if(v[tam].getElemento().equals(n.getElemento())) {
+			return true;
+		}else {
+			return false;
+		}
 	}
 
 	@Override
 	public No first() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return v[1].getAnterior();
 	}
 
 	@Override
 	public No last() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return v[tam-1].getProximo();
 	}
 
 	@Override
 	public No before(No n) {
-		// TODO Auto-generated method stub
-		return null;
+		No before = null;
+		for (int i = 0; i < tamanho; i++) {
+			if (v[i].getElemento().equals(n.getElemento())) {
+				before = (No) v[i].getAnterior().getElemento();
+			}
+		}
+		return before;
 	}
 
 	@Override
 	public No after(No n) {
-		// TODO Auto-generated method stub
-		return null;
+		No after = null;
+		for (int i = 0; i < tamanho; i++) {
+			if (v[i].getElemento().equals(n.getElemento())) {
+				after = (No) v[i].getProximo().getElemento();
+			}
+		}
+		return after;
 	}
 
 	@Override
 	public void replaceElem(No n, Object o) {
-		// TODO Auto-generated method stub
+		for (int i = 0; i < tamanho; i++) {
+			if(v[i].getElemento().equals(n.getElemento())) {
+				v[i].setElemento(o);
+			}
+			
+		}
 		
 	}
 
 	@Override
 	public void swapElem(No n, No q) {
-		// TODO Auto-generated method stub
+		Object novo = new Object();
+		novo = n.getElemento();
+		n.setElemento(q.getElemento());
+		q.setElemento(novo);
 		
 	}
 
 	@Override
 	public Object insertBefore(No n, Object o) {
-		// TODO Auto-generated method stub
-		return null;
+		Object iB = null;
+		for (int i = 0; i < tamanho; i++) {
+			if(v[i].getElemento().equals(n.getElemento())) {
+				v[i-1].setElemento(o);
+				v[i-1].setProximo(v[i]);
+				v[i].setAnterior(v[i-1]);
+				v[i-1].setAnterior(v[i-2]);
+				v[i-2].setProximo(v[i-1]);
+				iB = v[i-1].getElemento();
+			}
+		}
+		tam++;
+		return iB;
 	}
 
 	@Override
 	public Object insertAfter(No n, Object o) {
-		// TODO Auto-generated method stub
-		return null;
+		Object iA = null;
+		for (int i = 0; i < tamanho; i++) {
+			if(v[i].getElemento().equals(n.getElemento())) {
+				v[i+1].setElemento(o);
+				v[i+1].setAnterior(v[i]);
+				v[i].setProximo(v[i+1]);
+				v[i+1].setProximo(v[i+2]);
+				v[i+2].setAnterior(v[i+1]);
+				iA = v[i+1].getElemento();
+			}
+		}
+		tam++;
+		return iA;
 	}
 
 	@Override
 	public void insertFirst(No o) {
-		// TODO Auto-generated method stub
+		inicio.setElemento(o);
 		
 	}
 
 	@Override
 	public void insertLast(No o) {
-		// TODO Auto-generated method stub
+		fim.setElemento(o);
 		
 	}
 
 	@Override
 	public Object remove(No n) {
-		// TODO Auto-generated method stub
-		return null;
+		Object t = n.getElemento();
+		for (int i = 0; i < tamanho; i++) {
+			if (v[i].getElemento().equals(n.getElemento())) {
+				v[i].getAnterior().setProximo(v[i].getProximo());
+				v[i].getProximo().setAnterior(v[i].getAnterior());
+				v[i].setAnterior(null);
+				v[i].setProximo(null);
+				tam--;
+			}
+		}
+		return t;
 	}
 
 	@Override
@@ -134,19 +206,29 @@ public class TSequenciaArray implements Sequencia {
 		No node = null;
 		if(r <= (v.length / 2)){
 			node = inicio.getProximo();
-			for(int i = 0; i < r; i++) {
-				node = node.getProximo();
+			for(int i = 1; i < r; i++) {
+				//node = node.getProximo();
+				node = v[i].getProximo();
 			}
 		}else {
-			node = fim.getAnterior(); 
+			for (int e = tam; e > r; e++) {
+				node = v[e].getAnterior();
+			}
+			//node = fim.getAnterior(); 
 		}
 		return node;
 	}
 
 	@Override
 	public Object rankOf(No n) {
-		// TODO Auto-generated method stub
-		return null;
+		No node = null;
+		node = inicio.getProximo();
+		int r = 0;
+		while(node != n && n != fim) {
+			n.getProximo();
+			r++;
+		}
+		return r;
 	}
 
 }
